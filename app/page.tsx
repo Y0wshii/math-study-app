@@ -1,10 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, User, LogOut, CheckCircle, XCircle, Book, ArrowLeft, ChevronUp } from 'lucide-react';
-import topicsPartOne from './topics/topics1';
-import topicsPartTwo from './topics/topics2';
-import topicsPartThree from './topics/topics3';
+import { ChevronRight, LogOut, CheckCircle, XCircle, Book, ArrowLeft } from 'lucide-react';
 
 const INITIAL_USERS = [
   { username: 'student1', password: 'pass123' },
@@ -371,8 +368,7 @@ export default function MathApp() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);
-  const [score, setScore] = useState(0);
-  const [totalAttempts, setTotalAttempts] = useState(0);
+
 
   // Load data from localStorage after mount
   useEffect(() => {
