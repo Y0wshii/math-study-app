@@ -402,7 +402,7 @@ export default function MathApp() {
     }
   }, [users, userProgress, currentUser]);
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (users.some(user => user.username === registerUsername)) {
       setRegisterError('Username already exists');
@@ -416,7 +416,7 @@ export default function MathApp() {
     setLoginError('Registration successful! Please login.');
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = users.find(u => 
       u.username === loginUsername && u.password === loginPassword
