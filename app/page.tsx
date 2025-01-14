@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent } from 'react';
+import React from 'react';
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, LogOut, CheckCircle, XCircle, Book, ArrowLeft } from 'lucide-react';
 
@@ -403,9 +403,13 @@ export default function MathApp() {
     }
   }, [users, userProgress, currentUser]);
 
-  const handleRegister = (e: FormEvent) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // rest of the function
+    if (users.some(user => user.username === registerUsername)) {
+      setRegisterError('Username already exists');
+    }
+  };
+  
   };
     }
     const newUsers = [...users, { username: registerUsername, password: registerPassword }];
