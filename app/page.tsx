@@ -445,8 +445,6 @@ export default function MathApp() {
     setCurrentQuestionIndex(0);
     setSelectedChoice(null);
     setShowAnswer(false);
-    setScore(0);
-    setTotalAttempts(0);
   };
   // Login screen
   if (!currentUser) {
