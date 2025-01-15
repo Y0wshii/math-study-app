@@ -370,107 +370,82 @@ export default function MathApp() {
   const [showAnswer, setShowAnswer] = useState(false);
 
 
-  // Load data from localStorage after mount
-  useEffect(() => {
-    // Load saved users
-    const savedUsers = localStorage.getItem('mathAppUsers');
-    if (savedUsers) {
-      setUsers(JSON.parse(savedUsers));
-    }
+// Load data from localStorage after mount
+useEffect(() => {
+  // Load saved users
+  const savedUsers = localStorage.getItem('mathAppUsers');
+  if (savedUsers) {
+    setUsers(JSON.parse(savedUsers));
+  }
 
-    // Load current user
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      setCurrentUser(JSON.parse(savedUser));
-    }
+  // Load current user
+  const savedUser = localStorage.getItem('currentUser');
+  if (savedUser) {
+    setCurrentUser(JSON.parse(savedUser));
+  }
 
-    // Load user progress
-    const savedProgress = localStorage.getItem('userProgress');
-    if (savedProgress) {
-      setUserProgress(JSON.parse(savedProgress));
-    }
-  }, []);
+  // Load user progress
+  const savedProgress = localStorage.getItem('userProgress');
+  if (savedProgress) {
+    setUserProgress(JSON.parse(savedProgress));
+  }
+}, []);
 
-  // Save data to localStorage when it changes
-  useEffect(() => {
-    localStorage.setItem('mathAppUsers', JSON.stringify(users));
-    localStorage.setItem('userProgress', JSON.stringify(userProgress));
-    if (currentUser) {
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem('currentUser');
-    }
-  }, [users, userProgress, currentUser]);
+// Save data to localStorage when it changes
+useEffect(() => {
+  localStorage.setItem('mathAppUsers', JSON.stringify(users));
+  localStorage.setItem('userProgress', JSON.stringify(userProgress));
+  if (currentUser) {
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  } else {
+    localStorage.removeItem('currentUser');
+  }
+}, [users, userProgress, currentUser]);
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (users.some(user => user.username === registerUsername)) {
-      setRegisterError('Username already exists');
-      return;  // Add this return statement
-    }
-    const newUsers = [...users, { username: registerUsername, password: registerPassword }];
-    setUsers(newUsers);
-    setRegisterUsername('');
-    setRegisterPassword('');
-    setShowRegister(false);
-    setLoginError('Registration successful! Please login.');
-  };
+const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  if (users.some(user => user.username === registerUsername)) {
+    setRegisterError('Username already exists');
+    return;
+  }
+  const newUsers = [...users, { username: registerUsername, password: registerPassword }];
+  setUsers(newUsers);
+  setRegisterUsername('');
+  setRegisterPassword('');
+  setShowRegister(false);
+  setLoginError('Registration successful! Please login.');
+};
+
+const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const user = users.find(u => 
+    u.username === loginUsername && u.password === loginPassword
+  );
   
+  if (user) {
+    setCurrentUser(user);
+    setLoginError('');
+    if (!userProgress[user.username]) {
+      setUserProgress(prev => ({
+        ...prev,
+        [user.username]: {}
+      }));
     }
-    const newUsers = [...users, { username: registerUsername, password: registerPassword }];
-    setUsers(newUsers);
-    setRegisterUsername('');
-    setRegisterPassword('');
-    setShowRegister(false);
-    setLoginError('Registration successful! Please login.');
-  };
+    setLoginUsername('');
+    setLoginPassword('');
+  } else {
+    setLoginError('Invalid username or password');
+  }
+};
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const user = users.find(u => 
-      u.username === loginUsername && u.password === loginPassword
-    );
-    
-    if (user) {
-      setCurrentUser(user);
-      setLoginError('');
-      if (!userProgress[user.username]) {
-        setUserProgress(prev => ({
-          ...prev,
-          [user.username]: {}
-        }));
-      }
-      setLoginUsername('');
-      setLoginPassword('');
-    } else {
-      setLoginError('Invalid username or password');
-    }
-  };
-    
-    if (user) {
-      setCurrentUser(user);
-      setLoginError('');
-      if (!userProgress[user.username]) {
-        setUserProgress(prev => ({
-          ...prev,
-          [user.username]: {}
-        }));
-      }
-      setLoginUsername('');
-      setLoginPassword('');
-    } else {
-      setLoginError('Invalid username or password');
-    }
-  };
-
-  const handleLogout = () => {
-    setCurrentUser(null);
-    setSelectedTopic('');
-    setSelectedSubtopic('');
-    setCurrentQuestionIndex(0);
-    setSelectedChoice(null);
-    setShowAnswer(false);
-  };
+const handleLogout = () => {
+  setCurrentUser(null);
+  setSelectedTopic('');
+  setSelectedSubtopic('');
+  setCurrentQuestionIndex(0);
+  setSelectedChoice(null);
+  setShowAnswer(false);
+};
   // Login screen
   if (!currentUser) {
     return (
