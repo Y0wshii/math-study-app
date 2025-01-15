@@ -416,7 +416,6 @@ export default function MathApp() {
     setLoginError('Registration successful! Please login.');
   };
   
-  };
     }
     const newUsers = [...users, { username: registerUsername, password: registerPassword }];
     setUsers(newUsers);
