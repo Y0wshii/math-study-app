@@ -402,8 +402,6 @@ export default function MathApp() {
     }
   }, [users, userProgress, currentUser]);
 
-  import React from 'react'; // Ensure React is imported
-
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (users.some(user => user.username === registerUsername)) {
