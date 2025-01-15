@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { ChevronRight, LogOut, CheckCircle, XCircle, Book, ArrowLeft } from 'lucide-react';
 
 const INITIAL_USERS = [
@@ -403,11 +402,20 @@ export default function MathApp() {
     }
   }, [users, userProgress, currentUser]);
 
+  import React from 'react'; // Ensure React is imported
+
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (users.some(user => user.username === registerUsername)) {
       setRegisterError('Username already exists');
+      return;  // Add this return statement
     }
+    const newUsers = [...users, { username: registerUsername, password: registerPassword }];
+    setUsers(newUsers);
+    setRegisterUsername('');
+    setRegisterPassword('');
+    setShowRegister(false);
+    setLoginError('Registration successful! Please login.');
   };
   
   };
@@ -425,6 +433,22 @@ export default function MathApp() {
     const user = users.find(u => 
       u.username === loginUsername && u.password === loginPassword
     );
+    
+    if (user) {
+      setCurrentUser(user);
+      setLoginError('');
+      if (!userProgress[user.username]) {
+        setUserProgress(prev => ({
+          ...prev,
+          [user.username]: {}
+        }));
+      }
+      setLoginUsername('');
+      setLoginPassword('');
+    } else {
+      setLoginError('Invalid username or password');
+    }
+  };
     
     if (user) {
       setCurrentUser(user);
