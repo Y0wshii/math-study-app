@@ -1,10 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, User, LogOut, CheckCircle, XCircle, Book, ArrowLeft, ChevronUp } from 'lucide-react';
-import { topics } from './data/topics';  // Add this import
+import { ChevronRight, User as UserIcon, LogOut, CheckCircle, XCircle, Book, ArrowLeft, ChevronUp } from 'lucide-react';
+import { topics } from './data/topics';
+import { Topics, User, SubtopicProgress, UserProgress, AllUsersProgress } from './types';
 
-const INITIAL_USERS = [
+const topicsWithType = topics as Topics;
+
+const INITIAL_USERS: User[] = [
   { username: 'student1', password: 'pass123' },
   { username: 'student2', password: 'pass123' },
   { username: 'teacher', password: 'admin123' }
@@ -21,7 +24,7 @@ const inputStyles = "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ri
 
 export default function MathApp() {
   // User management state
-  const [users, setUsers] = useState(() => {
+  const [users, setUsers] = useState<User[]>(() => {
     if (typeof window !== 'undefined') {
       const savedUsers = localStorage.getItem('mathAppUsers');
       return savedUsers ? JSON.parse(savedUsers) : INITIAL_USERS;
@@ -29,7 +32,7 @@ export default function MathApp() {
     return INITIAL_USERS;
   });
 
-  const [currentUser, setCurrentUser] = useState(() => {
+  const [currentUser, setCurrentUser] = useState<User | null>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('currentUser');
       return saved ? JSON.parse(saved) : null;
@@ -48,98 +51,160 @@ export default function MathApp() {
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerError, setRegisterError] = useState('');
 
- // App state
- const [selectedTopic, setSelectedTopic] = useState('');
- const [selectedSubtopic, setSelectedSubtopic] = useState('');
- const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
- const [selectedChoice, setSelectedChoice] = useState(null);
- const [showAnswer, setShowAnswer] = useState(false);
- 
- // User progress state
- const [userProgress, setUserProgress] = useState(() => {
-   if (typeof window !== 'undefined') {
-     const savedProgress = localStorage.getItem('userProgress');
-     return savedProgress ? JSON.parse(savedProgress) : {};
-   }
-   return {};
- });
+  // App state
+  const [selectedTopic, setSelectedTopic] = useState('');
+  const [selectedSubtopic, setSelectedSubtopic] = useState('');
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
+  const [showAnswer, setShowAnswer] = useState(false);
 
-// Load data from localStorage after mount
-useEffect(() => {
-  // Load saved users
-  const savedUsers = localStorage.getItem('mathAppUsers');
-  if (savedUsers) {
-    setUsers(JSON.parse(savedUsers));
-  }
-
-  // Load current user
-  const savedUser = localStorage.getItem('currentUser');
-  if (savedUser) {
-    setCurrentUser(JSON.parse(savedUser));
-  }
-
-  // Load user progress
-  const savedProgress = localStorage.getItem('userProgress');
-  if (savedProgress) {
-    setUserProgress(JSON.parse(savedProgress));
-  }
-}, []);
-
-// Save data to localStorage when it changes
-useEffect(() => {
-  localStorage.setItem('mathAppUsers', JSON.stringify(users));
-  localStorage.setItem('userProgress', JSON.stringify(userProgress));
-  if (currentUser) {
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-  } else {
-    localStorage.removeItem('currentUser');
-  }
-}, [users, userProgress, currentUser]);
-
-const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  if (users.some(user => user.username === registerUsername)) {
-    setRegisterError('Username already exists');
-    return;
-  }
-  const newUsers = [...users, { username: registerUsername, password: registerPassword }];
-  setUsers(newUsers);
-  setRegisterUsername('');
-  setRegisterPassword('');
-  setShowRegister(false);
-  setLoginError('Registration successful! Please login.');
-};
-
-const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  const user = users.find(u => 
-    u.username === loginUsername && u.password === loginPassword
-  );
-  
-  if (user) {
-    setCurrentUser(user);
-    setLoginError('');
-    if (!userProgress[user.username]) {
-      setUserProgress(prev => ({
-        ...prev,
-        [user.username]: {}
-      }));
+  // User progress state
+  const [userProgress, setUserProgress] = useState<AllUsersProgress>(() => {
+    if (typeof window !== 'undefined') {
+      const savedProgress = localStorage.getItem('userProgress');
+      return savedProgress ? JSON.parse(savedProgress) : {};
     }
-    setLoginUsername('');
-    setLoginPassword('');
-  } else {
-    setLoginError('Invalid username or password');
-  }
-};
+    return {};
+  });
 
-const handleLogout = () => {
-  setCurrentUser(null);
-  setSelectedTopic('');
-  setSelectedSubtopic('');
-  setCurrentQuestionIndex(0);
-  setSelectedChoice(null);
-  setShowAnswer(false);
-};
+  // Topic and Question Data Processing
+  const typedTopics = topics as Topics;
+  const currentTopicData = selectedTopic ? typedTopics[selectedTopic] : null;
+  const currentSubtopicQuestions = currentTopicData?.subtopics[selectedSubtopic] || [];
+  const currentQuestion = currentSubtopicQuestions[currentQuestionIndex];
+
+  const userTopicProgress: SubtopicProgress = 
+    (currentUser && userProgress[currentUser.username]?.[selectedTopic]?.[selectedSubtopic]) || 
+    { attempts: 0, correct: 0 };
+
+  const accuracy = userTopicProgress.attempts > 0
+    ? Math.round((userTopicProgress.correct / userTopicProgress.attempts) * 100)
+    : 0;
+
+  // Load data from localStorage after mount
+  useEffect(() => {
+    const savedUsers = localStorage.getItem('mathAppUsers');
+    if (savedUsers) {
+      setUsers(JSON.parse(savedUsers));
+    }
+
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      setCurrentUser(JSON.parse(savedUser));
+    }
+
+    const savedProgress = localStorage.getItem('userProgress');
+    if (savedProgress) {
+      setUserProgress(JSON.parse(savedProgress));
+    }
+  }, []);
+
+  // Save data to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('mathAppUsers', JSON.stringify(users));
+    localStorage.setItem('userProgress', JSON.stringify(userProgress));
+    if (currentUser) {
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    } else {
+      localStorage.removeItem('currentUser');
+    }
+  }, [users, userProgress, currentUser]);
+
+  const updateProgress = (topic: string, subtopic: string, isCorrect: boolean) => {
+    if (!currentUser) return;
+    
+    setUserProgress(prev => {
+      const newProgress = { ...prev };
+      if (!newProgress[currentUser.username]) {
+        newProgress[currentUser.username] = {};
+      }
+      if (!newProgress[currentUser.username][topic]) {
+        newProgress[currentUser.username][topic] = {};
+      }
+      if (!newProgress[currentUser.username][topic][subtopic]) {
+        newProgress[currentUser.username][topic][subtopic] = { attempts: 0, correct: 0 };
+      }
+      
+      newProgress[currentUser.username][topic][subtopic].attempts++;
+      if (isCorrect) {
+        newProgress[currentUser.username][topic][subtopic].correct++;
+      }
+      
+      return newProgress;
+    });
+  };
+
+  const handleNextQuestion = () => {
+    if (!currentUser) return;
+
+    if (currentQuestionIndex < 4) {
+      setCurrentQuestionIndex(prev => prev + 1);
+      setSelectedChoice(null);
+      setShowAnswer(false);
+    } else {
+      setUserProgress(prev => {
+        const newProgress = { ...prev };
+        if (newProgress[currentUser.username]?.[selectedTopic]?.[selectedSubtopic]) {
+          const correct = newProgress[currentUser.username][selectedTopic][selectedSubtopic].correct % 5;
+          newProgress[currentUser.username][selectedTopic][selectedSubtopic] = {
+            attempts: 5,
+            correct: correct
+          };
+        }
+        return newProgress;
+      });
+      setSelectedSubtopic('');
+      setCurrentQuestionIndex(0);
+      setSelectedChoice(null);
+      setShowAnswer(false);
+    }
+  };
+
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (users.some(user => user.username === registerUsername)) {
+      setRegisterError('Username already exists');
+      return;
+    }
+    const newUsers = [...users, { username: registerUsername, password: registerPassword }];
+    setUsers(newUsers);
+    setRegisterUsername('');
+    setRegisterPassword('');
+    setShowRegister(false);
+    setLoginError('Registration successful! Please login.');
+  };
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const user = users.find(u => 
+      u.username === loginUsername && u.password === loginPassword
+    );
+    
+    if (user) {
+      setCurrentUser(user);
+      setLoginError('');
+      if (!userProgress[user.username]) {
+        setUserProgress(prev => ({
+          ...prev,
+          [user.username]: {}
+        }));
+      }
+      setLoginUsername('');
+      setLoginPassword('');
+    } else {
+      setLoginError('Invalid username or password');
+    }
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setSelectedTopic('');
+    setSelectedSubtopic('');
+    setCurrentQuestionIndex(0);
+    setSelectedChoice(null);
+    setShowAnswer(false);
+  };
+
   // Login screen
   if (!currentUser) {
     return (
@@ -382,7 +447,7 @@ if (!selectedSubtopic) {
           </div>
           
           <div className="grid gap-4">
-            {Object.keys(topics[selectedTopic].subtopics).map((subtopic) => {
+          {selectedTopic && topicsWithType[selectedTopic] && Object.keys(topicsWithType[selectedTopic].subtopics).map((subtopic) => {
               const progress = userProgress[currentUser.username]?.[selectedTopic]?.[subtopic] || 
                 { attempts: 0, correct: 0 };
               const percentage = progress.attempts > 0 ? 
@@ -429,59 +494,7 @@ if (!selectedSubtopic) {
 }
 
 // Question interface
-const currentQuestion = topics[selectedTopic].subtopics[selectedSubtopic][currentQuestionIndex];
-const userTopicProgress = userProgress[currentUser.username]?.[selectedTopic]?.[selectedSubtopic] || 
-  { attempts: 0, correct: 0 };
-const accuracy = userTopicProgress.attempts > 0 ? 
-  Math.round((userTopicProgress.correct / userTopicProgress.attempts) * 100) : 0;
 
-const updateProgress = (topic, subtopic, isCorrect) => {
-  setUserProgress(prev => {
-    const newProgress = { ...prev };
-    if (!newProgress[currentUser.username]) {
-      newProgress[currentUser.username] = {};
-    }
-    if (!newProgress[currentUser.username][topic]) {
-      newProgress[currentUser.username][topic] = {};
-    }
-    if (!newProgress[currentUser.username][topic][subtopic]) {
-      newProgress[currentUser.username][topic][subtopic] = { attempts: 0, correct: 0 };
-    }
-    
-    newProgress[currentUser.username][topic][subtopic].attempts++;
-    if (isCorrect) {
-      newProgress[currentUser.username][topic][subtopic].correct++;
-    }
-    
-    return newProgress;
-  });
-};
-
-const handleNextQuestion = () => {
-  if (currentQuestionIndex < 4) {
-    setCurrentQuestionIndex(prev => prev + 1);
-    setSelectedChoice(null);
-    setShowAnswer(false);
-  } else {
-    // Reset everything when done with all 5 questions
-    setUserProgress(prev => {
-      const newProgress = { ...prev };
-      if (newProgress[currentUser.username]?.[selectedTopic]?.[selectedSubtopic]) {
-        // Only keep track of the most recent attempt of 5 questions
-        const correct = newProgress[currentUser.username][selectedTopic][selectedSubtopic].correct % 5;
-        newProgress[currentUser.username][selectedTopic][selectedSubtopic] = {
-          attempts: 5,  // Set attempts to 5 since we have 5 questions
-          correct: correct
-        };
-      }
-      return newProgress;
-    });
-    setSelectedSubtopic('');
-    setCurrentQuestionIndex(0);
-    setSelectedChoice(null);
-    setShowAnswer(false);
-  }
-};
 
 return (
   <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8">

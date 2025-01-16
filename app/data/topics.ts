@@ -1,3 +1,5 @@
+import { Topics } from '../types';
+
 export const topics = {
     'Quadratic Functions': {
       subtopics: {
