@@ -72,6 +72,7 @@ export default function MathApp() {
   const currentTopicData = selectedTopic ? typedTopics[selectedTopic] : null;
   const currentSubtopicQuestions = currentTopicData?.subtopics[selectedSubtopic] || [];
   const currentQuestion = currentSubtopicQuestions[currentQuestionIndex];
+  const [currentSetProgress, setCurrentSetProgress] = useState<{correct: number}>({ correct: 0 });
 
   const userTopicProgress: SubtopicProgress = 
     (currentUser && userProgress[currentUser.username]?.[selectedTopic]?.[selectedSubtopic]) || 
@@ -109,6 +110,11 @@ export default function MathApp() {
       localStorage.removeItem('currentUser');
     }
   }, [users, userProgress, currentUser]);
+
+   // Reset progress when changing subtopics
+   useEffect(() => {
+    setCurrentSetProgress({ correct: 0 });
+  }, [selectedSubtopic])
 
   const updateProgress = (topic: string, subtopic: string, isCorrect: boolean) => {
     if (!currentUser) return;
@@ -172,6 +178,14 @@ export default function MathApp() {
     setRegisterPassword('');
     setShowRegister(false);
     setLoginError('Registration successful! Please login.');
+  };
+
+  const handleBackToSubtopics = () => {
+    setSelectedSubtopic('');
+    setCurrentQuestionIndex(0);
+    setSelectedChoice(null);
+    setShowAnswer(false);
+    setCurrentSetProgress({ correct: 0 }); // Reset the current set's progress
   };
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
@@ -502,12 +516,7 @@ return (
       <div className="bg-white rounded-2xl shadow-xl p-8">
         <div className="flex justify-between items-center mb-8">
           <button
-            onClick={() => {
-              setSelectedSubtopic('');
-              setCurrentQuestionIndex(0);
-              setSelectedChoice(null);
-              setShowAnswer(false);
-            }}
+             onClick={handleBackToSubtopics}
             className="flex items-center text-blue-600 hover:text-blue-700 font-semibold transition-colors"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
