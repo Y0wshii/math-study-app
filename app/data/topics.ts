@@ -15,14 +15,14 @@ export const topics = {
             explanation: "To find the time of maximum height, we need to find when the derivative equals zero: h'(t) = -9.8t + 20 = 0. Solving for t: t = 20/9.8 ≈ 2.04 seconds"
           },
           {
-            question: "A rectangular garden has an area of 200 square feet. If the length is twice the width, what are its dimensions?",
+            question: "A rectangular field has an area of 180 square meters. If the width is 4 meters less than the length, find its dimensions.",
             options: [
-              { text: "15 feet by 30 feet", correct: false },
-              { text: "10 feet by 20 feet", correct: true },
-              { text: "8 feet by 16 feet", correct: false },
-              { text: "12 feet by 24 feet", correct: false }
+              { text: "15 meters by 11 meters", correct: false },
+              { text: "18 meters by 14 meters", correct: true },
+              { text: "16 meters by 12 meters", correct: false },
+              { text: "20 meters by 16 meters", correct: false }
             ],
-            explanation: "Let width = x. Then length = 2x. Area = width × length = x(2x) = 2x². If area is 200, then 2x² = 200, so x = 10. Therefore width = 10 and length = 20"
+            explanation: "Let length = x and width = (x-4)\nArea = length × width = x(x-4) = 180\nx² - 4x - 180 = 0\nUsing quadratic formula: x = [-(-4) ± √(16 + 720)]/2\nx = [4 ± √736]/2\nx = [4 ± 27.13]/2\nx = 18 or -14 (discard negative)\nLength = 18m, Width = 14m\nVerify: 18 × 14 = 252 - 72 = 180 square meters"
           },
           {
             question: "A rectangular field has an area of 180 square meters. If the width is 4 meters less than the length, find its dimensions.",
@@ -42,7 +42,7 @@ export const topics = {
               { text: "35 items", correct: false },
               { text: "40 items", correct: false }
             ],
-            explanation: "For maximum profit, use vertex formula: x = -b/(2a) = -60/(2(-1)) = 30. This gives the number of items that maximizes profit."
+            explanation: "To find the maximum profit:\n1. This is a quadratic function where a = -1, b = 60, c = -500\n2. For a quadratic function, the maximum occurs at x = -b/(2a)\n3. Here, x = -60/(2(-1)) = 60/2 = 30\n4. We can verify this is a maximum (not minimum) because a is negative\n5. To double-check: \n   - At x = 29: P = -841 + 1740 - 500 = 399\n   - At x = 30: P = -900 + 1800 - 500 = 400\n   - At x = 31: P = -961 + 1860 - 500 = 399\nTherefore, profit is maximized at 30 items."
           },
           {
             question: "A rectangular pool is being constructed with a length 3 meters more than its width. If the area must be 40 square meters, what are its dimensions?",
@@ -112,16 +112,16 @@ export const topics = {
     'Series': {
       subtopics: {
         'Word Problems': [
-          {
-            question: "A student saves money weekly. They start with $10 in week 1 and add $5 more each week than the previous week. How much will they have saved in total after 8 weeks?",
-            options: [
-              { text: "$220", correct: false },
-              { text: "$180", correct: true },
-              { text: "$160", correct: false },
-              { text: "$200", correct: false }
-            ],
-            explanation: "This is an arithmetic series with a₁ = 10 and d = 5. Using Sn = n(a₁ + aₙ)/2, where aₙ = 10 + (8-1)5 = 45. Therefore, S₈ = 8(10 + 45)/2 = 8(55)/2 = 180"
-          },
+            {
+                question: "A student saves money weekly. They start with $10 in week 1 and add $5 more each week than the previous week. How much will they have saved in total after 8 weeks?",
+                options: [
+                  { text: "$220", correct: true },
+                  { text: "$180", correct: false },
+                  { text: "$160", correct: false },
+                  { text: "$200", correct: false }
+                ],
+                explanation: "Let's track the weekly savings:\nWeek 1: $10\nWeek 2: $15 (+$5)\nWeek 3: $20 (+$5)\nWeek 4: $25 (+$5)\nWeek 5: $30 (+$5)\nWeek 6: $35 (+$5)\nWeek 7: $40 (+$5)\nWeek 8: $45 (+$5)\nTotal = $10 + $15 + $20 + $25 + $30 + $35 + $40 + $45 = $220\nNote: This is not a simple arithmetic sequence because each amount increases by a constant ($5), making it a quadratic sequence."
+            },
           {
             question: "In a social media challenge, each person donates twice as much as the previous person. If the first person donates $2 and there are 6 people total, what is the total amount donated?",
             options: [
@@ -145,12 +145,12 @@ export const topics = {
           {
             question: "A video game player earns points starting with 100 in level 1, and each subsequent level earns 50 more points than the previous level. How many total points after completing 5 levels?",
             options: [
-              { text: "700 points", correct: false },
-              { text: "800 points", correct: false },
-              { text: "650 points", correct: false },
-              { text: "750 points", correct: true }
+              { text: "1000 points", correct: true },
+              { text: "750 points", correct: false },
+              { text: "850 points", correct: false },
+              { text: "900 points", correct: false }
             ],
-            explanation: "This is an arithmetic series with a₁ = 100 and d = 50. Using Sn = n(a₁ + aₙ)/2, where aₙ = 100 + (5-1)50 = 300. Therefore, S₅ = 5(100 + 300)/2 = 750"
+            explanation: "Let's break it down level by level:\nLevel 1: 100 points\nLevel 2: 150 points\nLevel 3: 200 points\nLevel 4: 250 points\nLevel 5: 300 points\nTotal = 100 + 150 + 200 + 250 + 300 = 1000 points\nThis is an arithmetic sequence with a₁ = 100 and d = 50. Using Sn = n(a₁ + aₙ)/2 = 5(100 + 300)/2 = 5(400)/2 = 1000"
           },
           {
             question: "A company's sales triple each month. If they sold 10 units in the first month, what is the total number of units sold over 4 months?",
@@ -253,12 +253,12 @@ export const topics = {
           {
             question: "A snowball rolling down a hill increases its diameter by 5cm each roll. If it starts with 10cm diameter, what will be its diameter after 8 rolls?",
             options: [
-              { text: "45cm", correct: false },
-              { text: "50cm", correct: true },
+              { text: "45cm", correct: true },
+              { text: "50cm", correct: false },
               { text: "40cm", correct: false },
               { text: "55cm", correct: false }
             ],
-            explanation: "This is an arithmetic sequence with a₁ = 10 and d = 5. Using an = a₁ + (n-1)d: a₈ = 10 + (8-1)5 = 10 + 35 = 45cm"
+            explanation: "Let's solve step by step:\n1. Initial diameter = 10cm\n2. Each roll adds 5cm\n3. Number of increases = 7 (after 8 rolls, there are 7 increases)\n4. Using arithmetic sequence formula: an = a₁ + (n-1)d\n   where a₁ = 10, n = 8, d = 5\n5. Final diameter = 10 + (8-1)5\n                 = 10 + (7)5\n                 = 10 + 35\n                 = 45cm\nWe can verify: 10→15→20→25→30→35→40→45"
           },
           {
             question: "In a pyramid scheme, each person recruits 3 new people. Starting with 1 person, how many people will be at level 4?",
@@ -268,7 +268,7 @@ export const topics = {
               { text: "12 people", correct: false },
               { text: "36 people", correct: false }
             ],
-            explanation: "This is a geometric sequence with r = 3. Using ar^(n-1): 1(3)³ = 27 people at level 4"
+            explanation: "Let's track each level:\nLevel 1: 1 person\nLevel 2: 3 people (3¹)\nLevel 3: 9 people (3²)\nLevel 4: 27 people (3³)\nThis is a geometric sequence where each level has 3 times as many people as the previous level. For level 4, we use ar^(n-1) = 1(3³) = 27 people. Note that 81 (the wrong answer) would be level 5."
           }
         ],
         'General Questions': [
