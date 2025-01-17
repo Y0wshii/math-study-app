@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, User as UserIcon, LogOut, CheckCircle, XCircle, Book, ArrowLeft, ChevronUp } from 'lucide-react';
+import { ChevronRight, LogOut, CheckCircle, XCircle, Book, ArrowLeft, ChevronUp } from 'lucide-react';
 import { topics } from './data/topics';
-import { Topics, User, SubtopicProgress, UserProgress, AllUsersProgress } from './types';
+import { Topics, User as UserType, SubtopicProgress, UserProgress, AllUsersProgress } from './types';
 
 const topicsWithType = topics as Topics;
 
-const INITIAL_USERS: User[] = [
+const INITIAL_USERS: UserType[] = [
   { username: 'student1', password: 'pass123' },
   { username: 'student2', password: 'pass123' },
   { username: 'teacher', password: 'admin123' }
@@ -24,7 +24,7 @@ const inputStyles = "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ri
 
 export default function MathApp() {
   // User management state
-  const [users, setUsers] = useState<User[]>(() => {
+  const [users, setUsers] = useState<UserType[]>(() => {
     if (typeof window !== 'undefined') {
       const savedUsers = localStorage.getItem('mathAppUsers');
       return savedUsers ? JSON.parse(savedUsers) : INITIAL_USERS;
@@ -32,7 +32,7 @@ export default function MathApp() {
     return INITIAL_USERS;
   });
 
-  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+  const [currentUser, setCurrentUser] = useState<UserType | null>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('currentUser');
       return saved ? JSON.parse(saved) : null;
