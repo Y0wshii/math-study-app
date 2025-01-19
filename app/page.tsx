@@ -73,6 +73,10 @@ export default function MathApp() {
   const currentSubtopicQuestions = currentTopicData?.subtopics[selectedSubtopic] || [];
   const currentQuestion = currentSubtopicQuestions[currentQuestionIndex];
   const [currentSetProgress, setCurrentSetProgress] = useState<{correct: number}>({ correct: 0 });
+  const [currentAttempt, setCurrentAttempt] = useState({
+    attempts: 0,
+    correct: 0
+  });
 
   const userTopicProgress: SubtopicProgress = 
     (currentUser && userProgress[currentUser.username]?.[selectedTopic]?.[selectedSubtopic]) || 
@@ -111,6 +115,12 @@ export default function MathApp() {
     }
   }, [users, userProgress, currentUser]);
 
+  useEffect(() => {
+    if (selectedSubtopic) {
+      setCurrentAttempt({ attempts: 0, correct: 0 });
+    }
+  }, [selectedSubtopic]);
+
    // Reset progress when changing subtopics
    useEffect(() => {
     setCurrentSetProgress({ correct: 0 });
@@ -119,46 +129,42 @@ export default function MathApp() {
   const updateProgress = (topic: string, subtopic: string, isCorrect: boolean) => {
     if (!currentUser) return;
     
-    setUserProgress(prev => {
-      const newProgress = { ...prev };
-      if (!newProgress[currentUser.username]) {
-        newProgress[currentUser.username] = {};
-      }
-      if (!newProgress[currentUser.username][topic]) {
-        newProgress[currentUser.username][topic] = {};
-      }
-      if (!newProgress[currentUser.username][topic][subtopic]) {
-        newProgress[currentUser.username][topic][subtopic] = { attempts: 0, correct: 0 };
-      }
-      
-      newProgress[currentUser.username][topic][subtopic].attempts++;
-      if (isCorrect) {
-        newProgress[currentUser.username][topic][subtopic].correct++;
-      }
-      
-      return newProgress;
-    });
+    // Update current attempt tracking
+    setCurrentAttempt(prev => ({
+      attempts: prev.attempts + 1,
+      correct: isCorrect ? prev.correct + 1 : prev.correct
+    }));
   };
 
   const handleNextQuestion = () => {
     if (!currentUser) return;
-
+  
     if (currentQuestionIndex < 4) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedChoice(null);
       setShowAnswer(false);
     } else {
+      // Update the stored progress when completing all 5 questions
       setUserProgress(prev => {
         const newProgress = { ...prev };
-        if (newProgress[currentUser.username]?.[selectedTopic]?.[selectedSubtopic]) {
-          const correct = newProgress[currentUser.username][selectedTopic][selectedSubtopic].correct % 5;
-          newProgress[currentUser.username][selectedTopic][selectedSubtopic] = {
-            attempts: 5,
-            correct: correct
-          };
+        if (!newProgress[currentUser.username]) {
+          newProgress[currentUser.username] = {};
         }
+        if (!newProgress[currentUser.username][selectedTopic]) {
+          newProgress[currentUser.username][selectedTopic] = {};
+        }
+        if (!newProgress[currentUser.username][selectedTopic][selectedSubtopic]) {
+          newProgress[currentUser.username][selectedTopic][selectedSubtopic] = { attempts: 0, correct: 0 };
+        }
+        
+        // Store the completed set
+        newProgress[currentUser.username][selectedTopic][selectedSubtopic] = currentAttempt;
+        
         return newProgress;
       });
+  
+      // Reset for next attempt
+      setCurrentAttempt({ attempts: 0, correct: 0 });
       setSelectedSubtopic('');
       setCurrentQuestionIndex(0);
       setSelectedChoice(null);
@@ -185,7 +191,7 @@ export default function MathApp() {
     setCurrentQuestionIndex(0);
     setSelectedChoice(null);
     setShowAnswer(false);
-    setCurrentSetProgress({ correct: 0 }); // Reset the current set's progress
+    setCurrentAttempt({ attempts: 0, correct: 0 });
   };
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
@@ -526,12 +532,17 @@ return (
             <h2 className="text-2xl font-bold text-gray-900 mb-1">{selectedSubtopic}</h2>
             <div className="flex items-center justify-end">
               <span className="text-sm text-gray-600 mr-2">
-                Score: {userTopicProgress.correct}/{userTopicProgress.attempts} ({accuracy}%)
+                Current Score: {currentAttempt.correct}/{currentAttempt.attempts}
+                {userTopicProgress.attempts > 0 && (
+                  <span className="ml-2 text-gray-500">
+                    (Previous: {userTopicProgress.correct}/{userTopicProgress.attempts})
+                  </span>
+                )}
               </span>
               <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-blue-500 rounded-full"
-                  style={{ width: `${accuracy}%` }}
+                  style={{ width: `${currentAttempt.attempts > 0 ? (currentAttempt.correct / currentAttempt.attempts) * 100 : 0}%` }}
                 />
               </div>
             </div>
