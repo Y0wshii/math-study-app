@@ -324,5 +324,113 @@ export const topics = {
           }
         ]
       }
+    },
+    'Direct Variation': {
+      subtopics: {
+        'Word Problems': [
+          {
+            question: "The cost of printing custom t-shirts varies directly with the number of shirts ordered. If 25 shirts cost $300, how much would 40 shirts cost?",
+            options: [
+              { text: "$480", correct: true },
+              { text: "$450", correct: false },
+              { text: "$500", correct: false },
+              { text: "$420", correct: false }
+            ],
+            explanation: "Since y = kx, find k by dividing $300 by 25 = $12 per shirt. Then multiply $12 by 40 shirts to get $480."
+          },
+          {
+            question: "The force (F) required to stretch a spring varies directly with its displacement (x). If a force of 24 Newtons stretches the spring 6 centimeters, what force is needed to stretch it 15 centimeters?",
+            options: [
+              { text: "50 Newtons", correct: false },
+              { text: "60 Newtons", correct: true },
+              { text: "45 Newtons", correct: false },
+              { text: "55 Newtons", correct: false }
+            ],
+            explanation: "Find k by dividing 24N by 6cm = 4 N/cm. Then multiply 4 N/cm by 15cm to get 60N."
+          },
+          {
+            question: "In a chemical reaction, the amount of product formed varies directly with the amount of reactant used. If 15 grams of reactant produces 45 grams of product, how much product will 25 grams of reactant produce?",
+            options: [
+              { text: "65 grams", correct: false },
+              { text: "70 grams", correct: false },
+              { text: "75 grams", correct: true },
+              { text: "80 grams", correct: false }
+            ],
+            explanation: "Find k by dividing 45g product by 15g reactant = 3. Then multiply 3 by 25g reactant to get 75g product."
+          },
+          {
+            question: "The time taken to fill a pool varies directly with its volume. If it takes 3 hours to fill a 1500-gallon pool, how long will it take to fill a 2500-gallon pool?",
+            options: [
+              { text: "4 hours", correct: false },
+              { text: "4.5 hours", correct: false },
+              { text: "5 hours", correct: true },
+              { text: "5.5 hours", correct: false }
+            ],
+            explanation: "Find k by dividing 3 hours by 1500 gallons = 0.002 hours/gallon. Then multiply by 2500 gallons to get 5 hours."
+          },
+          {
+            question: "The gravitational force between two objects varies directly with their masses. If the force between two 10kg objects is 0.5 Newtons, what would be the force if one object's mass was increased to 25kg?",
+            options: [
+              { text: "1.25 Newtons", correct: true },
+              { text: "1 Newton", correct: false },
+              { text: "1.5 Newtons", correct: false },
+              { text: "0.75 Newtons", correct: false }
+            ],
+            explanation: "Original force = k(10)(10). New force = k(25)(10). The ratio is 25/10 = 2.5. Multiply original force 0.5N by 2.5 to get 1.25N."
+          }
+        ],
+        'General Questions': [
+          {
+            question: "If y varies directly with x, and y = 12 when x = 3, find y when x = 7.",
+            options: [
+              { text: "24", correct: false },
+              { text: "28", correct: true },
+              { text: "21", correct: false },
+              { text: "32", correct: false }
+            ],
+            explanation: "Find k by dividing y by x: 12/3 = 4. Then multiply k by new x: 4 × 7 = 28."
+          },
+          {
+            question: "In the direct variation equation y = kx, if y = 15 when x = 5, what is the value of k?",
+            options: [
+              { text: "2", correct: false },
+              { text: "2.5", correct: false },
+              { text: "3", correct: true },
+              { text: "3.5", correct: false }
+            ],
+            explanation: "Substitute the values into y = kx: 15 = k(5). Solve for k: k = 15/5 = 3."
+          },
+          {
+            question: "If y varies directly as x, and y = 8 when x = 2, find the equation relating x and y.",
+            options: [
+              { text: "y = 4x", correct: true },
+              { text: "y = 2x", correct: false },
+              { text: "y = 6x", correct: false },
+              { text: "y = 8x", correct: false }
+            ],
+            explanation: "Find k using y = kx: 8 = k(2). Solve for k: k = 4. Therefore, y = 4x."
+          },
+          {
+            question: "If P varies directly as Q, and P = 24 when Q = 6, find Q when P = 16.",
+            options: [
+              { text: "3", correct: false },
+              { text: "4", correct: true },
+              { text: "5", correct: false },
+              { text: "6", correct: false }
+            ],
+            explanation: "Find k: 24 = k(6), so k = 4. Use P = 4Q and substitute P = 16: 16 = 4Q. Solve for Q: Q = 4."
+          },
+          {
+            question: "If y varies directly as x, and y = -10 when x = 5, find y when x = -3.",
+            options: [
+              { text: "8", correct: false },
+              { text: "6", correct: true },
+              { text: "4", correct: false },
+              { text: "-6", correct: false }
+            ],
+            explanation: "Find k: -10 = k(5), so k = -2. Use y = -2x and substitute x = -3: y = -2(-3) = 6."
+          }
+        ]
+      }
     }
   };
