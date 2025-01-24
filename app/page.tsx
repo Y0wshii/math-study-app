@@ -404,8 +404,6 @@ export default function MathApp() {
             </div>
           </div>
   
-          {selectedTopic && <StudyGuide topicName={selectedTopic} />}
-  
           {/* Progress Overview section continues here... */}
 
           {/* Progress Overview */}
@@ -459,6 +457,7 @@ if (!selectedSubtopic) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
+        <StudyGuide topicName={selectedTopic} />
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="flex justify-between items-center mb-8">
             <button
