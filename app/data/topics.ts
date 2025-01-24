@@ -106,42 +106,9 @@ export const topics = {
             ],
             explanation: "Using factoring: x² + 2x - 15 = (x + 5)(x - 3) = 0, therefore x = -5 or x = 3"
           }
-        ],
-        'Learning Walkthrough': [{
-        question: "Understanding Quadratic Functions",
-        options: [{
-          text: `A quadratic function has the form f(x) = ax² + bx + c where:
-- a determines if parabola opens up (a > 0) or down (a < 0)
-- b affects the axis of symmetry (-b/2a)
-- c is the y-intercept
-
-Example 1: f(x) = -2x² + 4x + 1
-1. Opens down (a = -2 is negative)
-2. Vertex at x = -4/(-4) = 1
-3. y-coordinate: f(1) = -2(1)² + 4(1) + 1 = 3
-4. Vertex is (1, 3)
-5. y-intercept is 1 (when x = 0)
-
-Example 2: Finding Roots
-x = [-b ± √(b² - 4ac)]/2a
-For f(x) = x² - 5x + 6:
-1. a = 1, b = -5, c = 6
-2. x = [5 ± √(25 - 24)]/2
-3. x = [5 ± 1]/2
-4. x = 3 or 2
-
-Practice:
-1. Sketch the graph
-2. Find vertex first
-3. Plot y-intercept
-4. Find roots if needed
-5. Additional points for accuracy`,
-          correct: true
-        }],
-        explanation: "Walkthrough of quadratic function concepts and examples"
-      }]
-    }
-  },
+        ]
+      }
+    },
     'Series': {
       subtopics: {
         'Word Problems': [

@@ -44,3 +44,14 @@ export interface Option {
   export interface AllUsersProgress {
     [username: string]: UserProgress;
   }
+
+  export interface StudyGuide {
+    content: string;
+  }
+  
+  export interface Topic {
+    subtopics: {
+      [key: string]: Question[];
+    };
+    guide?: StudyGuide;
+  }

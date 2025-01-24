@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronRight, LogOut, CheckCircle, XCircle, Book, ArrowLeft, ChevronUp } from 'lucide-react';
 import { topics } from './data/topics';
 import { Topics, User as UserType, SubtopicProgress, UserProgress, AllUsersProgress } from './types';
+import { StudyGuide } from '@/components/StudyGuide';
 
 const topicsWithType = topics as Topics;
 
@@ -386,7 +387,7 @@ export default function MathApp() {
                 Sign Out
               </button>
             </div>
-
+  
             <div className="grid gap-4">
               {Object.keys(topics).map((topic) => (
                 <button
@@ -402,6 +403,10 @@ export default function MathApp() {
               ))}
             </div>
           </div>
+  
+          {selectedTopic && <StudyGuide topicName={selectedTopic} />}
+  
+          {/* Progress Overview section continues here... */}
 
           {/* Progress Overview */}
           {Object.keys(userProgress[currentUser.username] || {}).length > 0 && (
