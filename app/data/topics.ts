@@ -106,9 +106,42 @@ export const topics = {
             ],
             explanation: "Using factoring: x² + 2x - 15 = (x + 5)(x - 3) = 0, therefore x = -5 or x = 3"
           }
-        ]
-      }
-    },
+        ],
+        'Learning Walkthrough': [{
+        question: "Understanding Quadratic Functions",
+        options: [{
+          text: `A quadratic function has the form f(x) = ax² + bx + c where:
+- a determines if parabola opens up (a > 0) or down (a < 0)
+- b affects the axis of symmetry (-b/2a)
+- c is the y-intercept
+
+Example 1: f(x) = -2x² + 4x + 1
+1. Opens down (a = -2 is negative)
+2. Vertex at x = -4/(-4) = 1
+3. y-coordinate: f(1) = -2(1)² + 4(1) + 1 = 3
+4. Vertex is (1, 3)
+5. y-intercept is 1 (when x = 0)
+
+Example 2: Finding Roots
+x = [-b ± √(b² - 4ac)]/2a
+For f(x) = x² - 5x + 6:
+1. a = 1, b = -5, c = 6
+2. x = [5 ± √(25 - 24)]/2
+3. x = [5 ± 1]/2
+4. x = 3 or 2
+
+Practice:
+1. Sketch the graph
+2. Find vertex first
+3. Plot y-intercept
+4. Find roots if needed
+5. Additional points for accuracy`,
+          correct: true
+        }],
+        explanation: "Walkthrough of quadratic function concepts and examples"
+      }]
+    }
+  },
     'Series': {
       subtopics: {
         'Word Problems': [
@@ -432,5 +465,112 @@ export const topics = {
           }
         ]
       }
+    },
+    'Inverse Variation': {
+      subtopics: {
+        'Word Problems': [
+          {
+            question: "The pressure (P) of a fixed amount of gas varies inversely with its volume (V). If the pressure is 300 kPa when the volume is 4 liters, what is the pressure when the volume is 10 liters?",
+            options: [
+              { text: "120 kPa", correct: true },
+              { text: "150 kPa", correct: false },
+              { text: "100 kPa", correct: false },
+              { text: "140 kPa", correct: false }
+            ],
+            explanation: "Using P₁V₁ = P₂V₂: (300)(4) = P₂(10). Solve for P₂: P₂ = 1200/10 = 120 kPa."
+          },
+          {
+            question: "The time taken to complete a construction project varies inversely with the number of workers. If 12 workers can complete the project in 15 days, how many days will it take 20 workers?",
+            options: [
+              { text: "10 days", correct: false },
+              { text: "9 days", correct: true },
+              { text: "8 days", correct: false },
+              { text: "11 days", correct: false }
+            ],
+            explanation: "Using k = xy: k = (12)(15) = 180. With 20 workers, time = 180/20 = 9 days."
+          },
+          {
+            question: "The intensity of light varies inversely with the square of the distance from the source. If the intensity is 100 lux at 2 meters, what is it at 5 meters?",
+            options: [
+              { text: "16 lux", correct: true },
+              { text: "20 lux", correct: false },
+              { text: "25 lux", correct: false },
+              { text: "18 lux", correct: false }
+            ],
+            explanation: "Using I₁d₁² = I₂d₂²: (100)(2²) = I₂(5²). Solve for I₂: I₂ = 400/25 = 16 lux."
+          },
+          {
+            question: "The frequency (f) of a vibrating string varies inversely with its length (L). If a 30cm string vibrates at 440 Hz, what frequency will it produce when shortened to 20cm?",
+            options: [
+              { text: "660 Hz", correct: true },
+              { text: "600 Hz", correct: false },
+              { text: "580 Hz", correct: false },
+              { text: "620 Hz", correct: false }
+            ],
+            explanation: "Using k = fL: k = (440)(30) = 13,200. With L = 20, f = 13,200/20 = 660 Hz."
+          },
+          {
+            question: "The strength of a gravitational field varies inversely with the square of the distance from the center. If the field strength is 10 N/kg at 3 meters, what is it at 6 meters?",
+            options: [
+              { text: "5 N/kg", correct: false },
+              { text: "3.5 N/kg", correct: false },
+              { text: "2.5 N/kg", correct: true },
+              { text: "4 N/kg", correct: false }
+            ],
+            explanation: "Using g₁r₁² = g₂r₂²: (10)(3²) = g₂(6²). Solve for g₂: g₂ = 90/36 = 2.5 N/kg."
+          }
+        ],
+        'General Questions': [
+          {
+            question: "If y varies inversely as x, and y = 8 when x = 3, find y when x = 6.",
+            options: [
+              { text: "4", correct: true },
+              { text: "3", correct: false },
+              { text: "5", correct: false },
+              { text: "6", correct: false }
+            ],
+            explanation: "Find k using xy = k: (8)(3) = 24 = k. When x = 6, y = 24/6 = 4."
+          },
+          {
+            question: "In the inverse variation equation xy = k, if y = 12 when x = 2, what is the value of k?",
+            options: [
+              { text: "20", correct: false },
+              { text: "24", correct: true },
+              { text: "22", correct: false },
+              { text: "26", correct: false }
+            ],
+            explanation: "Substitute values into xy = k: (2)(12) = k. Therefore, k = 24."
+          },
+          {
+            question: "If y varies inversely as x, and y = 5 when x = -4, find the equation relating x and y.",
+            options: [
+              { text: "xy = -20", correct: true },
+              { text: "xy = 20", correct: false },
+              { text: "xy = -15", correct: false },
+              { text: "xy = 15", correct: false }
+            ],
+            explanation: "Find k using xy = k: (5)(-4) = -20 = k. Therefore, xy = -20."
+          },
+          {
+            question: "If P varies inversely as Q, and P = 15 when Q = 2, find Q when P = 6.",
+            options: [
+              { text: "5", correct: true },
+              { text: "4", correct: false },
+              { text: "6", correct: false },
+              { text: "3", correct: false }
+            ],
+            explanation: "Find k: (15)(2) = 30 = k. When P = 6: (6)(Q) = 30. Solve for Q: Q = 5."
+          },
+          {
+            question: "If y varies inversely as x², and y = 16 when x = 2, find y when x = 4.",
+            options: [
+              { text: "8", correct: false },
+              { text: "6", correct: false },
+              { text: "4", correct: true },
+              { text: "2", correct: false }
+            ],
+            explanation: "Find k using yx² = k: (16)(2²) = 64 = k. When x = 4: y(4²) = 64. Solve for y: y = 64/16 = 4."
+          }
+        ]      }
     }
   };
