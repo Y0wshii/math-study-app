@@ -648,5 +648,113 @@ export const topics = {
           }
         ]
       }
+    },
+    'Degrees and Radians': {
+      subtopics: {
+        'Converting Between Units': [
+          {
+            question: "Convert 180° to radians.",
+            options: [
+              { text: "π radians", correct: true },
+              { text: "2π radians", correct: false },
+              { text: "π/2 radians", correct: false },
+              { text: "3π/2 radians", correct: false }
+            ],
+            explanation: "To convert degrees to radians, multiply by π/180°. So 180° × (π/180°) = π radians"
+          },
+          {
+            question: "Convert 2π radians to degrees.",
+            options: [
+              { text: "180°", correct: false },
+              { text: "360°", correct: true },
+              { text: "90°", correct: false },
+              { text: "270°", correct: false }
+            ],
+            explanation: "To convert radians to degrees, multiply by 180°/π. So 2π × (180°/π) = 360°"
+          },
+          {
+            question: "Convert 45° to radians.",
+            options: [
+              { text: "π/6 radians", correct: false },
+              { text: "π/3 radians", correct: false },
+              { text: "π/4 radians", correct: true },
+              { text: "π/2 radians", correct: false }
+            ],
+            explanation: "45° × (π/180°) = (45π/180) = π/4 radians"
+          },
+          {
+            question: "Convert 3π/4 radians to degrees.",
+            options: [
+              { text: "135°", correct: true },
+              { text: "120°", correct: false },
+              { text: "145°", correct: false },
+              { text: "150°", correct: false }
+            ],
+            explanation: "(3π/4) × (180°/π) = (3 × 180°)/4 = 135°"
+          },
+          {
+            question: "Convert 270° to radians.",
+            options: [
+              { text: "π radians", correct: false },
+              { text: "3π/2 radians", correct: true },
+              { text: "2π radians", correct: false },
+              { text: "5π/3 radians", correct: false }
+            ],
+            explanation: "270° × (π/180°) = (270π/180) = 3π/2 radians"
+          }
+        ],
+        'Word Problems': [
+          {
+            question: "A Ferris wheel makes one complete rotation in 60 seconds. How many radians does it rotate per second?",
+            options: [
+              { text: "π/30 radians", correct: true },
+              { text: "π/15 radians", correct: false },
+              { text: "π/45 radians", correct: false },
+              { text: "π/60 radians", correct: false }
+            ],
+            explanation: "One complete rotation is 2π radians. In 60 seconds, it rotates 2π radians, so per second it rotates 2π/60 = π/30 radians"
+          },
+          {
+            question: "An angle of 40° appears in the first quadrant. What is its reference angle in radians?",
+            options: [
+              { text: "2π/9 radians", correct: true },
+              { text: "π/9 radians", correct: false },
+              { text: "π/4.5 radians", correct: false },
+              { text: "π/6 radians", correct: false }
+            ],
+            explanation: "The reference angle is the same as the original angle in first quadrant. Convert 40° to radians: 40° × (π/180°) = (40π/180) = 2π/9 radians"
+          },
+          {
+            question: "A planet completes 1/3 of its orbit in 60 days. How many degrees does it travel per day?",
+            options: [
+              { text: "2°", correct: true },
+              { text: "3°", correct: false },
+              { text: "1.5°", correct: false },
+              { text: "2.5°", correct: false }
+            ],
+            explanation: "1/3 of orbit = 120° (as full orbit is 360°). In 60 days it travels 120°, so per day it travels 120°/60 = 2°"
+          },
+          {
+            question: "A robot arm rotates π/6 radians every 2 seconds. How many degrees does it rotate in 10 seconds?",
+            options: [
+              { text: "150°", correct: true },
+              { text: "120°", correct: false },
+              { text: "180°", correct: false },
+              { text: "90°", correct: false }
+            ],
+            explanation: "In 2 seconds: π/6 radians = 30°. In 10 seconds: (30° × 10)/2 = 150°"
+          },
+          {
+            question: "A wind turbine rotates 20° per second. How many complete rotations does it make in one minute?",
+            options: [
+              { text: "2.5 rotations", correct: false },
+              { text: "3 rotations", correct: false },
+              { text: "3.33 rotations", correct: true },
+              { text: "4 rotations", correct: false }
+            ],
+            explanation: "In one minute (60 seconds): 20° × 60 = 1200°. Complete rotations = 1200°/360° = 3.33 rotations"
+          }
+        ]
+      }
     }
   };
