@@ -238,7 +238,65 @@ export const StudyGuide = ({ topicName }: { topicName: string }) => {
         </div>
       </div>
     ),
+    'Arcs and Sectors': (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Key Formulas</h3>
+          <div className="bg-blue-50 p-6 rounded-xl">
+            <ul className="space-y-3 text-gray-700">
+              <li><strong>Arc Length:</strong> L = (θ/360°) × 2πr</li>
+              <li><strong>Sector Area:</strong> A = (θ/360°) × πr²</li>
+              <li><strong>Radian Measure:</strong> θ(rad) = θ(deg) × (π/180°)</li>
+              <li><strong>Major Arc:</strong> 360° - minor arc</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Important Concepts</h3>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              1 radian creates an arc length equal to the radius
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Sector area is proportional to central angle
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Major arc + minor arc = 360°
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Worked Examples</h3>
+          <div className="bg-blue-50 p-6 rounded-xl space-y-4">
+            <div>
+              <p className="font-semibold mb-2">Arc Length Example</p>
+              <p>Find arc length for r = 5 units, θ = 60°:</p>
+              <ol className="list-decimal list-inside space-y-1">
+                <li>L = (60/360) × 2π(5)</li>
+                <li>L = (1/6) × 10π</li>
+                <li>L = 5π/3 units</li>
+              </ol>
+            </div>
+            <div>
+              <p className="font-semibold mb-2">Sector Area Example</p>
+              <p>Find sector area for r = 6 units, θ = 90°:</p>
+              <ol className="list-decimal list-inside space-y-1">
+                <li>A = (90/360) × π(6²)</li>
+                <li>A = (1/4) × 36π</li>
+                <li>A = 9π square units</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   };
+
 
   return (
     <div className="bg-white rounded-2xl shadow-xl">
