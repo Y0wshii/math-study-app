@@ -5,6 +5,7 @@ import { ChevronRight, LogOut, CheckCircle, XCircle, Book, ArrowLeft, ChevronUp 
 import { topics } from './data/topics';
 import { Topics, User as UserType, SubtopicProgress, UserProgress, AllUsersProgress } from './types';
 import { StudyGuide } from '@/components/StudyGuide';
+import Whiteboard from '@/components/Whiteboard';
 
 const topicsWithType = topics as Topics;
 
@@ -523,124 +524,128 @@ if (!selectedSubtopic) {
 
 
 return (
-  <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8">
-    <div className="max-w-4xl mx-auto px-4">
-      <div className="bg-white rounded-2xl shadow-xl p-8">
-        <div className="flex justify-between items-center mb-8">
-          <button
-             onClick={handleBackToSubtopics}
-            className="flex items-center text-blue-600 hover:text-blue-700 font-semibold transition-colors"
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            Back to Subtopics
-          </button>
-          <div className="text-right">
-            <h2 className="text-2xl font-bold text-gray-900 mb-1">{selectedSubtopic}</h2>
-            <div className="flex items-center justify-end">
-              <span className="text-sm text-gray-600 mr-2">
-                Current Score: {currentAttempt.correct}/{currentAttempt.attempts}
-                {userTopicProgress.attempts > 0 && (
-                  <span className="ml-2 text-gray-500">
-                    (Previous: {userTopicProgress.correct}/{userTopicProgress.attempts})
-                  </span>
-                )}
-              </span>
-              <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-blue-500 rounded-full"
-                  style={{ width: `${currentAttempt.attempts > 0 ? (currentAttempt.correct / currentAttempt.attempts) * 100 : 0}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+ <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8 px-4">
+   <div className="max-w-[1400px] mx-auto flex gap-6">
+     <div className="flex-1 bg-white rounded-2xl shadow-xl p-8">
+       <div className="flex justify-between items-center mb-8">
+         <button
+           onClick={handleBackToSubtopics}
+           className="flex items-center text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+         >
+           <ArrowLeft className="h-5 w-5 mr-2" />
+           Back to Subtopics
+         </button>
+         <div className="text-right">
+           <h2 className="text-2xl font-bold text-gray-900 mb-1">{selectedSubtopic}</h2>
+           <div className="flex items-center justify-end">
+             <span className="text-sm text-gray-600 mr-2">
+               Current Score: {currentAttempt.correct}/{currentAttempt.attempts}
+               {userTopicProgress.attempts > 0 && (
+                 <span className="ml-2 text-gray-500">
+                   (Previous: {userTopicProgress.correct}/{userTopicProgress.attempts})
+                 </span>
+               )}
+             </span>
+             <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
+               <div 
+                 className="h-full bg-blue-500 rounded-full"
+                 style={{ width: `${currentAttempt.attempts > 0 ? (currentAttempt.correct / currentAttempt.attempts) * 100 : 0}%` }}
+               />
+             </div>
+           </div>
+         </div>
+       </div>
 
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Question {currentQuestionIndex + 1} of 5
-            </h3>
-            <div className="flex gap-1">
-              {[...Array(5)].map((_, index) => (
-                <div 
-                  key={index}
-                  className={`w-8 h-1 rounded ${
-                    index <= currentQuestionIndex ? 'bg-blue-500' : 'bg-gray-200'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-          <p className="text-lg text-gray-800">{currentQuestion.question}</p>
-        </div>
+       <div className="mb-8">
+         <div className="flex items-center justify-between mb-4">
+           <h3 className="text-lg font-semibold text-gray-900">
+             Question {currentQuestionIndex + 1} of 5
+           </h3>
+           <div className="flex gap-1">
+             {[...Array(5)].map((_, index) => (
+               <div 
+                 key={index}
+                 className={`w-8 h-1 rounded ${
+                   index <= currentQuestionIndex ? 'bg-blue-500' : 'bg-gray-200'
+                 }`}
+               />
+             ))}
+           </div>
+         </div>
+         <p className="text-lg text-gray-800">{currentQuestion.question}</p>
+       </div>
 
-        <div className="space-y-3 mb-8">
-          {currentQuestion.options.map((option, index) => (
-            <button
-              key={index}
-              onClick={() => !showAnswer && setSelectedChoice(index)}
-              disabled={showAnswer}
-              className={`w-full p-4 text-left border-2 rounded-xl transition-all duration-200
-                ${showAnswer
-                  ? option.correct
-                    ? 'bg-green-50 border-green-500 text-green-700'
-                    : selectedChoice === index
-                    ? 'bg-red-50 border-red-500 text-red-700'
-                    : 'bg-white border-gray-200 text-gray-500'
-                  : selectedChoice === index
-                  ? 'bg-blue-50 border-blue-500 text-blue-700'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-blue-200 hover:bg-blue-50'
-                }
-                ${showAnswer ? 'cursor-default' : 'cursor-pointer'}
-              `}
-            >
-              <div className="flex items-center">
-                <span className="text-lg">{option.text}</span>
-                {showAnswer && option.correct && (
-                  <CheckCircle className="h-5 w-5 ml-2 text-green-500" />
-                )}
-                {showAnswer && !option.correct && selectedChoice === index && (
-                  <XCircle className="h-5 w-5 ml-2 text-red-500" />
-                )}
-              </div>
-            </button>
-          ))}
-        </div>
+       <div className="space-y-3 mb-8">
+         {currentQuestion.options.map((option, index) => (
+           <button
+             key={index}
+             onClick={() => !showAnswer && setSelectedChoice(index)}
+             disabled={showAnswer}
+             className={`w-full p-4 text-left border-2 rounded-xl transition-all duration-200
+               ${showAnswer
+                 ? option.correct
+                   ? 'bg-green-50 border-green-500 text-green-700'
+                   : selectedChoice === index
+                   ? 'bg-red-50 border-red-500 text-red-700'
+                   : 'bg-white border-gray-200 text-gray-500'
+                 : selectedChoice === index
+                 ? 'bg-blue-50 border-blue-500 text-blue-700'
+                 : 'bg-white border-gray-200 text-gray-700 hover:border-blue-200 hover:bg-blue-50'
+               }
+               ${showAnswer ? 'cursor-default' : 'cursor-pointer'}
+             `}
+           >
+             <div className="flex items-center">
+               <span className="text-lg">{option.text}</span>
+               {showAnswer && option.correct && (
+                 <CheckCircle className="h-5 w-5 ml-2 text-green-500" />
+               )}
+               {showAnswer && !option.correct && selectedChoice === index && (
+                 <XCircle className="h-5 w-5 ml-2 text-red-500" />
+               )}
+             </div>
+           </button>
+         ))}
+       </div>
 
-        <div className="flex justify-between items-center">
-          <button
-            onClick={() => {
-              if (!showAnswer && selectedChoice !== null) {
-                const isCorrect = currentQuestion.options[selectedChoice].correct;
-                updateProgress(selectedTopic, selectedSubtopic, isCorrect);
-                setShowAnswer(true);
-              }
-            }}
-            className={`${buttonStyles.primary} px-8 py-3 ${
-              showAnswer || selectedChoice === null ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            disabled={showAnswer || selectedChoice === null}
-          >
-            Submit Answer
-          </button>
-          {showAnswer && (
-            <button
-              onClick={handleNextQuestion}
-              className={`${buttonStyles.primary} px-8 py-3`}
-            >
-              Next Question
-            </button>
-          )}
-        </div>
+       <div className="flex justify-between items-center">
+         <button
+           onClick={() => {
+             if (!showAnswer && selectedChoice !== null) {
+               const isCorrect = currentQuestion.options[selectedChoice].correct;
+               updateProgress(selectedTopic, selectedSubtopic, isCorrect);
+               setShowAnswer(true);
+             }
+           }}
+           className={`${buttonStyles.primary} px-8 py-3 ${
+             showAnswer || selectedChoice === null ? 'opacity-50 cursor-not-allowed' : ''
+           }`}
+           disabled={showAnswer || selectedChoice === null}
+         >
+           Submit Answer
+         </button>
+         {showAnswer && (
+           <button
+             onClick={handleNextQuestion}
+             className={`${buttonStyles.primary} px-8 py-3`}
+           >
+             Next Question
+           </button>
+         )}
+       </div>
 
-        {showAnswer && (
-          <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
-            <h4 className="text-lg font-semibold text-gray-900 mb-2">Explanation:</h4>
-            <p className="text-gray-800">{currentQuestion.explanation}</p>
-          </div>
-        )}
-      </div>
-    </div>
-  </div>
+       {showAnswer && (
+         <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
+           <h4 className="text-lg font-semibold text-gray-900 mb-2">Explanation:</h4>
+           <p className="text-gray-800">{currentQuestion.explanation}</p>
+         </div>
+       )}
+     </div>
+
+     <div className="w-1/2">
+       <Whiteboard />
+     </div>
+   </div>
+ </div>
 );
 }

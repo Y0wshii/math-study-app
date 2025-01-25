@@ -238,6 +238,7 @@ export const StudyGuide = ({ topicName }: { topicName: string }) => {
         </div>
       </div>
     ),
+    
     'Arcs and Sectors': (
       <div className="space-y-6">
         <div>
