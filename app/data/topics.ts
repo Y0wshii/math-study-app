@@ -538,6 +538,115 @@ export const topics = {
             ],
             explanation: "Find k using yx² = k: (16)(2²) = 64 = k. When x = 4: y(4²) = 64. Solve for y: y = 64/16 = 4."
           }
-        ]      }
+        ]      
+      }
+    },
+    'Arcs and Sectors': {
+      subtopics: {
+        'Arcs': [
+          {
+            question: "In a circle with radius 10 units, a central angle of 90° is drawn. What is the length of the arc?",
+            options: [
+              { text: "5π units", correct: true },
+              { text: "10π units", correct: false },
+              { text: "15π units", correct: false },
+              { text: "20π units", correct: false }
+            ],
+            explanation: "Arc length = (θ/360°) × 2πr = (90/360) × 2π(10) = (1/4) × 20π = 5π units"
+          },
+          {
+            question: "If a minor arc measures 60°, what is the measure of its corresponding major arc?",
+            options: [
+              { text: "300°", correct: true },
+              { text: "120°", correct: false },
+              { text: "240°", correct: false },
+              { text: "180°", correct: false }
+            ],
+            explanation: "Major arc = 360° - minor arc = 360° - 60° = 300°"
+          },
+          {
+            question: "In a circle with radius 8 units, an arc has length 8π units. What is its central angle in degrees?",
+            options: [
+              { text: "180°", correct: true },
+              { text: "90°", correct: false },
+              { text: "120°", correct: false },
+              { text: "360°", correct: false }
+            ],
+            explanation: "Using θ = (arc length × 360°)/(2πr): θ = (8π × 360°)/(2π × 8) = 180°"
+          },
+          {
+            question: "A central angle of 30° creates an arc length of 5π units. What is the radius of the circle?",
+            options: [
+              { text: "30 units", correct: true },
+              { text: "15 units", correct: false },
+              { text: "20 units", correct: false },
+              { text: "25 units", correct: false }
+            ],
+            explanation: "Using arc length formula: 5π = (30/360) × 2πr. Solve for r: 5π = (π/6)r, therefore r = 30 units"
+          },
+          {
+            question: "If an arc length is equal to the radius of the circle, what is its measure in radians?",
+            options: [
+              { text: "1 radian", correct: true },
+              { text: "π radians", correct: false },
+              { text: "2 radians", correct: false },
+              { text: "π/2 radians", correct: false }
+            ],
+            explanation: "By definition, 1 radian is the angle that creates an arc length equal to the radius of the circle"
+          }
+        ],
+        'Sectors': [
+          {
+            question: "A sector has a central angle of 120° in a circle with radius 6 units. What is its area?",
+            options: [
+              { text: "12π square units", correct: true },
+              { text: "18π square units", correct: false },
+              { text: "24π square units", correct: false },
+              { text: "36π square units", correct: false }
+            ],
+            explanation: "Sector area = (θ/360°) × πr² = (120/360) × π(6²) = (1/3) × 36π = 12π square units"
+          },
+          {
+            question: "If a sector has area 8π square units and radius 4 units, what is its central angle in degrees?",
+            options: [
+              { text: "180°", correct: true },
+              { text: "90°", correct: false },
+              { text: "120°", correct: false },
+              { text: "360°", correct: false }
+            ],
+            explanation: "Using sector area formula: 8π = (θ/360°) × π(16). Solve for θ: θ = 180°"
+          },
+          {
+            question: "In a circle of radius 5 units, what is the area of a sector with central angle 72°?",
+            options: [
+              { text: "5π square units", correct: true },
+              { text: "10π square units", correct: false },
+              { text: "15π square units", correct: false },
+              { text: "25π square units", correct: false }
+            ],
+            explanation: "Sector area = (72/360) × π(5²) = (1/5) × 25π = 5π square units"
+          },
+          {
+            question: "A sector has area 18π square units and central angle 90°. What is the radius of the circle?",
+            options: [
+              { text: "6 units", correct: true },
+              { text: "8 units", correct: false },
+              { text: "9 units", correct: false },
+              { text: "12 units", correct: false }
+            ],
+            explanation: "Using sector area formula: 18π = (90/360) × πr². Solve for r: 18π = (1/4)πr², therefore r = 6 units"
+          },
+          {
+            question: "What fraction of a circle's area is represented by a sector with central angle 60°?",
+            options: [
+              { text: "1/6", correct: true },
+              { text: "1/3", correct: false },
+              { text: "1/4", correct: false },
+              { text: "1/8", correct: false }
+            ],
+            explanation: "Fraction = θ/360° = 60°/360° = 1/6 of the total circle area"
+          }
+        ]
+      }
     }
   };
