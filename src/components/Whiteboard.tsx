@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState, MouseEvent, TouchEvent } from 'react';
-import { Eraser, Pencil, ZoomIn, ZoomOut } from 'lucide-react';
+import { Eraser, Pencil } from 'lucide-react';
 
 const Whiteboard = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
-  const [tool, setTool] = useState<'pen' | 'eraser'>('pen');
-  const [zoom, setZoom] = useState(1);
-  const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
+ const canvasRef = useRef<HTMLCanvasElement>(null);
+ const [isDrawing, setIsDrawing] = useState(false);
+ const [tool, setTool] = useState<'pen' | 'eraser'>('pen');
+ const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
 
  useEffect(() => {
    const canvas = canvasRef.current;
@@ -54,7 +53,7 @@ const Whiteboard = () => {
      y = (event.clientY - rect.top) * scaleY;
    }
    
-   return { x: x / zoom, y: y / zoom };
+   return { x, y };
  };
 
  const startDrawing = (event: MouseEvent | TouchEvent) => {
@@ -94,13 +93,6 @@ const Whiteboard = () => {
    updateTool(context, newTool);
  };
 
- const handleZoom = (direction: 'in' | 'out') => {
-   setZoom(prev => {
-     const newZoom = direction === 'in' ? prev + 0.1 : prev - 0.1;
-     return Math.min(Math.max(newZoom, 0.5), 2);
-   });
- };
-
  return (
    <div className="flex flex-col h-full bg-white rounded-xl shadow-md p-4">
      <div className="flex justify-between items-center mb-4">
@@ -119,20 +111,6 @@ const Whiteboard = () => {
          >
            <Eraser className="w-5 h-5" />
          </button>
-         <button
-           onClick={() => handleZoom('in')}
-           className="p-2 rounded-lg hover:bg-gray-100"
-           title="Zoom In"
-         >
-           <ZoomIn className="w-5 h-5" />
-         </button>
-         <button
-           onClick={() => handleZoom('out')}
-           className="p-2 rounded-lg hover:bg-gray-100"
-           title="Zoom Out"
-         >
-           <ZoomOut className="w-5 h-5" />
-         </button>
        </div>
        <button
          onClick={clearCanvas}
@@ -147,8 +125,6 @@ const Whiteboard = () => {
          style={{
            width: '100%',
            height: '600px',
-           transformOrigin: '0 0',
-           transform: `scale(${zoom})`,
            cursor: tool === 'pen' ? 'crosshair' : 'default',
            touchAction: 'none'
          }}
