@@ -238,7 +238,7 @@ export const StudyGuide = ({ topicName }: { topicName: string }) => {
         </div>
       </div>
     ),
-    
+
     'Arcs and Sectors': (
       <div className="space-y-6">
         <div>
@@ -292,6 +292,103 @@ export const StudyGuide = ({ topicName }: { topicName: string }) => {
                 <li>A = 9π square units</li>
               </ol>
             </div>
+          </div>
+        </div>
+      </div>
+    ),
+
+    'Degrees and Radians': (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Core Concepts</h3>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Degrees: Full circle = 360°
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Radians: Full circle = 2π radians
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Conversion formulas:
+              <ul className="ml-6 mt-2">
+                <li>Degrees to Radians: multiply by π/180°</li>
+                <li>Radians to Degrees: multiply by 180°/π</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Common Values</h3>
+          <div className="bg-blue-50 p-6 rounded-xl">
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="text-left">Degrees</th>
+                  <th className="text-left">Radians</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>30°</td>
+                  <td>π/6</td>
+                </tr>
+                <tr>
+                  <td>45°</td>
+                  <td>π/4</td>
+                </tr>
+                <tr>
+                  <td>60°</td>
+                  <td>π/3</td>
+                </tr>
+                <tr>
+                  <td>90°</td>
+                  <td>π/2</td>
+                </tr>
+                <tr>
+                  <td>180°</td>
+                  <td>π</td>
+                </tr>
+                <tr>
+                  <td>360°</td>
+                  <td>2π</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Tips for Problem Solving</h3>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              For angles greater than 360° or 2π, divide by 360° or 2π to find rotations
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              For negative angles, add 360° or 2π to get positive equivalent
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Reference angles are always positive and ≤ 90° or π/2
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Worked Example</h3>
+          <div className="bg-blue-50 p-6 rounded-xl">
+            <p className="font-semibold mb-2">Convert 225° to radians</p>
+            <ol className="list-decimal list-inside space-y-2 text-gray-700">
+              <li>Use formula: multiply by π/180°</li>
+              <li>225° × (π/180°)</li>
+              <li>Simplify: 225π/180 = 5π/4</li>
+              <li>Answer: 5π/4 radians</li>
+            </ol>
           </div>
         </div>
       </div>
