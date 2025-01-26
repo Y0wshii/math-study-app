@@ -7,6 +7,18 @@ import { Topics, User as UserType, SubtopicProgress, TopicProgress, UserProgress
 import { StudyGuide } from '@/components/StudyGuide';
 import Whiteboard from '@/components/Whiteboard';
 import LevelProgress from '@/components/LevelProgress';
+import RankUpModal from '@/components/RankUpModal';
+
+const LEVELS = [
+  { name: "Number Novice", minXP: 0 },
+  { name: "Equation Explorer", minXP: 100 },
+  { name: "Formula Fighter", minXP: 250 },
+  { name: "Math Maverick", minXP: 500 },
+  { name: "Algebra Ace", minXP: 1000 },
+  { name: "Calculus Conqueror", minXP: 2000 },
+  { name: "Theory Titan", minXP: 4000 },
+  { name: "Math Master", minXP: 8000 }
+];
 
 const topicsWithType = topics as Topics;
 
@@ -34,6 +46,9 @@ export default function MathApp() {
     }
     return INITIAL_USERS;
   });
+
+  const [showRankUpModal, setShowRankUpModal] = useState(false);
+  const [rankUpDetails, setRankUpDetails] = useState({ oldRank: '', newRank: '' });
 
   const [currentUser, setCurrentUser] = useState<UserType | null>(null);
 
@@ -167,8 +182,11 @@ export default function MathApp() {
         const newLevel = Math.floor(newProgress[currentUser.username].xp / 100);
         
         if (newLevel > prevLevel) {
-          setShowLevelUp(true);
-          setTimeout(() => setShowLevelUp(false), 3000);
+          setRankUpDetails({
+            oldRank: LEVELS[prevLevel].name,
+            newRank: LEVELS[newLevel].name
+          });
+          setShowRankUpModal(true);
         }
   
         return newProgress;
@@ -662,6 +680,12 @@ return (
        <Whiteboard />
      </div>
    </div>
+   <RankUpModal
+     isOpen={showRankUpModal}
+     onClose={() => setShowRankUpModal(false)}
+     oldRank={rankUpDetails.oldRank}
+     newRank={rankUpDetails.newRank}
+     />
  </div>
 );
 }
