@@ -392,6 +392,60 @@ export const StudyGuide = ({ topicName }: { topicName: string }) => {
           </div>
         </div>
       </div>
+    ),
+
+    'Relative Frequency': (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Core Concepts</h3>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Relative Frequency = Count/Total
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Always between 0 and 1
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Can be expressed as decimal or percentage
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Example</h3>
+          <div className="bg-blue-50 p-6 rounded-xl">
+            <p className="font-semibold mb-2">Class Survey Results:</p>
+            <ul className="space-y-1 text-gray-700">
+              <li>10 like pizza</li>
+              <li>5 like burgers</li>
+              <li>5 like pasta</li>
+              <li>Total: 20 students</li>
+              <li>Relative frequency (pizza) = 10/20 = 0.5 or 50%</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Common Uses</h3>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Class surveys
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Sports statistics
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              School activities data
+            </li>
+          </ul>
+        </div>
+      </div>
     )
   };
 

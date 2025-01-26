@@ -756,5 +756,114 @@ export const topics = {
           }
         ]
       }
+    },
+    'Relative Frequency': {
+      subtopics: {
+        'Word Problems': [
+          {
+            question: "A class of 30 students was surveyed about their favorite season. If 12 chose summer, what is the relative frequency?",
+            options: [
+              { text: "0.4 or 40%", correct: true },
+              { text: "0.3 or 30%", correct: false },
+              { text: "0.5 or 50%", correct: false },
+              { text: "0.6 or 60%", correct: false }
+            ],
+            explanation: "Relative frequency = count/total = 12/30 = 0.4 = 40%"
+          },
+          {
+            question: "In a survey of 50 students about transportation to school, 20 walk, 15 take the bus, and 15 get driven. What is the relative frequency of students who walk?",
+            options: [
+              { text: "0.4 or 40%", correct: true },
+              { text: "0.3 or 30%", correct: false },
+              { text: "0.45 or 45%", correct: false },
+              { text: "0.35 or 35%", correct: false }
+            ],
+            explanation: "Relative frequency of walking = 20/50 = 0.4 = 40%"
+          },
+          {
+            question: "In two different classes, Class A has 8 out of 20 students playing sports, while Class B has 12 out of 25 students playing sports. Which class has a higher relative frequency of athletes?",
+            options: [
+              { text: "Class A (0.4)", correct: false },
+              { text: "Class B (0.48)", correct: true },
+              { text: "They are equal", correct: false },
+              { text: "Cannot be determined", correct: false }
+            ],
+            explanation: "Class A: 8/20 = 0.4\nClass B: 12/25 = 0.48\nClass B has a higher relative frequency"
+          },
+          {
+            question: "In a school of 200 students, 80 participate in music programs. If another school has 150 students and the same relative frequency of music participation, how many students would be in music?",
+            options: [
+              { text: "60 students", correct: true },
+              { text: "50 students", correct: false },
+              { text: "70 students", correct: false },
+              { text: "75 students", correct: false }
+            ],
+            explanation: "First school relative frequency = 80/200 = 0.4\nSecond school participants = 150 × 0.4 = 60 students"
+          },
+          {
+            question: "A basketball player makes 15 out of 25 free throws in game A, and 18 out of 30 free throws in game B. In which game was their relative frequency of successful shots better?",
+            options: [
+              { text: "Game A", correct: true },
+              { text: "Game B", correct: false },
+              { text: "Equal performance", correct: false },
+              { text: "Need more information", correct: false }
+            ],
+            explanation: "Game A: 15/25 = 0.6 or 60%\nGame B: 18/30 = 0.6 or 60%\nEqual performance in both games"
+          }
+        ],
+        'Data Analysis': [
+          {
+            question: "A survey shows the following responses for favorite colors: Red: 8, Blue: 12, Green: 5 (Total: 25). What is the relative frequency of blue?",
+            options: [
+              { text: "0.48 or 48%", correct: true },
+              { text: "0.32 or 32%", correct: false },
+              { text: "0.52 or 52%", correct: false },
+              { text: "0.40 or 40%", correct: false }
+            ],
+            explanation: "Relative frequency of blue = 12/25 = 0.48 = 48%"
+          },
+          {
+            question: "If 15 out of 40 students have brown eyes, and you surveyed 100 more students with the same relative frequency, how many brown-eyed students would you expect?",
+            options: [
+              { text: "37.5 students", correct: true },
+              { text: "35 students", correct: false },
+              { text: "40 students", correct: false },
+              { text: "45 students", correct: false }
+            ],
+            explanation: "Current relative frequency = 15/40 = 0.375\nExpected number = 0.375 × 100 = 37.5 students"
+          },
+          {
+            question: "In a sample of 200 test scores, 40 students got A, 80 got B, 60 got C, and 20 got D. What is the relative frequency of B grades?",
+            options: [
+              { text: "0.4 or 40%", correct: true },
+              { text: "0.3 or 30%", correct: false },
+              { text: "0.35 or 35%", correct: false },
+              { text: "0.45 or 45%", correct: false }
+            ],
+            explanation: "Relative frequency of B grades = 80/200 = 0.4 = 40%"
+          },
+          {
+            question: "A coin is flipped 50 times, resulting in 28 heads. What is the relative frequency of heads?",
+            options: [
+              { text: "0.56 or 56%", correct: true },
+              { text: "0.50 or 50%", correct: false },
+              { text: "0.52 or 52%", correct: false },
+              { text: "0.54 or 54%", correct: false }
+            ],
+            explanation: "Relative frequency of heads = 28/50 = 0.56 = 56%"
+          },
+          {
+            question: "In a school library, out of 150 borrowed books last week, 45 were fiction, 75 were non-fiction, and 30 were reference books. What is the relative frequency of non-fiction books?",
+            options: [
+              { text: "0.5 or 50%", correct: true },
+              { text: "0.4 or 40%", correct: false },
+              { text: "0.6 or 60%", correct: false },
+              { text: "0.45 or 45%", correct: false }
+            ],
+            explanation: "Relative frequency of non-fiction = 75/150 = 0.5 = 50%"
+          }
+        ]
+      }
     }
   };
+  
