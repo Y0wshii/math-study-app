@@ -446,6 +446,69 @@ export const StudyGuide = ({ topicName }: { topicName: string }) => {
           </ul>
         </div>
       </div>
+    ),
+
+    'Sample Space and Tree Diagrams': (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Sample Space</h3>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Collection of all possible outcomes of an experiment
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Multiplication Principle: If task 1 has m ways and task 2 has n ways, there are m × n ways to do both tasks
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Addition Principle: If event A can happen in m ways and event B in n ways (mutually exclusive), there are m + n ways for either to occur
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Tree Diagrams</h3>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Visual representation of sequential events
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Each branch represents one possible outcome
+            </li>
+            <li className="flex items-start">
+              <span className="mr-2">•</span>
+              Multiply probabilities along paths for combined probability
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">Key Concepts</h3>
+          <div className="bg-blue-50 p-6 rounded-xl">
+            <h4 className="font-semibold mb-2">Sample Space Example</h4>
+            <p className="mb-4">Rolling two dice:</p>
+            <ul className="space-y-1 text-gray-700">
+              <li>Total outcomes: 6 × 6 = 36</li>
+              <li>Sum of 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1)</li>
+              <li>P(sum of 7) = 6/36 = 1/6</li>
+            </ul>
+          </div>
+
+          <div className="bg-blue-50 p-6 rounded-xl mt-4">
+            <h4 className="font-semibold mb-2">Tree Diagram Example</h4>
+            <p className="mb-4">Two coin flips:</p>
+            <ul className="space-y-1 text-gray-700">
+              <li>First level: H, T</li>
+              <li>Second level: HH, HT, TH, TT</li>
+              <li>P(2 heads) = 1/4</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     )
   };
 

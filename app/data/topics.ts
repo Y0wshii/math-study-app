@@ -864,6 +864,114 @@ export const topics = {
           }
         ]
       }
+    },
+    'Sample Space and Tree Diagrams': {
+      subtopics: {
+        'Sample Space': [
+          {
+            question: "A bag contains 3 red marbles and 4 blue marbles. Two marbles are drawn without replacement. How many possible outcomes are in the sample space?",
+            options: [
+              { text: "49 outcomes", correct: false },
+              { text: "42 outcomes", correct: true },
+              { text: "21 outcomes", correct: false },
+              { text: "14 outcomes", correct: false }
+            ],
+            explanation: "For the first draw: 7 possibilities (3 red + 4 blue). For each first draw: if red drawn first (3 choices) → 6 remaining (3 blue). If blue drawn first (4 choices) → 6 remaining (3 red + 3 blue). Total = (3×6) + (4×6) = 42 outcomes"
+          },
+          {
+            question: "A fair six-sided die is rolled twice. What is the size of the sample space for outcomes where the sum of the two rolls is greater than 7?",
+            options: [
+              { text: "15 outcomes", correct: true },
+              { text: "18 outcomes", correct: false },
+              { text: "21 outcomes", correct: false },
+              { text: "12 outcomes", correct: false }
+            ],
+            explanation: "Total possible combinations = 36. Count pairs that sum > 7: (2,6),(3,5),(3,6),(4,4),(4,5),(4,6),(5,3),(5,4),(5,5),(5,6),(6,2),(6,3),(6,4),(6,5),(6,6) = 15 outcomes"
+          },
+          {
+            question: "Three coins are flipped simultaneously. In the sample space, how many outcomes contain exactly two heads?",
+            options: [
+              { text: "4 outcomes", correct: false },
+              { text: "3 outcomes", correct: true },
+              { text: "2 outcomes", correct: false },
+              { text: "6 outcomes", correct: false }
+            ],
+            explanation: "Total sample space = 8 outcomes (HHH,HHT,HTH,THH,HTT,THT,TTH,TTT). Outcomes with exactly 2 heads: HHT, HTH, THH = 3 outcomes"
+          },
+          {
+            question: "A card is drawn from a standard deck, then replaced, and a second card is drawn. What is the size of the sample space for getting at least one heart?",
+            options: [
+              { text: "765 outcomes", correct: true },
+              { text: "689 outcomes", correct: false },
+              { text: "832 outcomes", correct: false },
+              { text: "676 outcomes", correct: false }
+            ],
+            explanation: "Total outcomes = 52 × 52 = 2704. Probability of no hearts = (39/52)² = 1939/2704. Therefore, outcomes with at least one heart = 2704 - 1939 = 765"
+          },
+          {
+            question: "In a group of 4 students, each student must choose either math or science. How many different possible outcomes are in the sample space?",
+            options: [
+              { text: "8 outcomes", correct: false },
+              { text: "16 outcomes", correct: true },
+              { text: "12 outcomes", correct: false },
+              { text: "24 outcomes", correct: false }
+            ],
+            explanation: "Each student has 2 choices, and there are 4 students. Using multiplication principle: 2⁴ = 16 possible outcomes"
+          }
+        ],
+        'Tree Diagrams': [
+          {
+            question: "In a tree diagram representing the gender of three children in order of birth, how many different paths lead to exactly two boys?",
+            options: [
+              { text: "2 paths", correct: false },
+              { text: "3 paths", correct: true },
+              { text: "4 paths", correct: false },
+              { text: "6 paths", correct: false }
+            ],
+            explanation: "Possible paths for two boys: BBG, BGB, GBB = 3 paths. Each level of tree splits into B/G, creating these combinations"
+          },
+          {
+            question: "A tree diagram shows a person picking 2 cards from a deck without replacement. How many branches are at the first level?",
+            options: [
+              { text: "52 branches", correct: true },
+              { text: "26 branches", correct: false },
+              { text: "13 branches", correct: false },
+              { text: "4 branches", correct: false }
+            ],
+            explanation: "First level shows all possible first picks = 52 cards. Each of these branches then splits into 51 possibilities for second pick"
+          },
+          {
+            question: "In a two-stage experiment, a coin is flipped and then a die is rolled if heads, or a card is drawn if tails. How many endpoints are in the tree diagram?",
+            options: [
+              { text: "58 endpoints", correct: true },
+              { text: "54 endpoints", correct: false },
+              { text: "52 endpoints", correct: false },
+              { text: "62 endpoints", correct: false }
+            ],
+            explanation: "From H: 6 possible die outcomes. From T: 52 possible card outcomes. Total endpoints = 6 + 52 = 58"
+          },
+          {
+            question: "A tree diagram represents selecting a color (Red/Blue) and then a number (1-3) if Red was chosen, or a letter (A/B) if Blue was chosen. How many complete paths are possible?",
+            options: [
+              { text: "5 paths", correct: true },
+              { text: "6 paths", correct: false },
+              { text: "4 paths", correct: false },
+              { text: "8 paths", correct: false }
+            ],
+            explanation: "From Red: 3 paths (R1, R2, R3). From Blue: 2 paths (BA, BB). Total = 3 + 2 = 5 complete paths"
+          },
+          {
+            question: "In a three-stage experiment with binary choices (Success/Failure) at each stage, how many unique paths in the tree diagram lead to exactly two successes?",
+            options: [
+              { text: "2 paths", correct: false },
+              { text: "3 paths", correct: true },
+              { text: "4 paths", correct: false },
+              { text: "6 paths", correct: false }
+            ],
+            explanation: "Paths for two successes: SSF, SFS, FSS = 3 paths. Each stage splits into S/F, creating these combinations"
+          }
+        ]
+      }
     }
   };
   
