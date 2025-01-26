@@ -38,10 +38,10 @@ const LevelProgress: React.FC<LevelProgressProps> = ({ xp, showLevelUp }) => {
   return (
     <div className="relative">
       {showLevelUp && (
-        <div className="absolute inset-0 z-50 animate-bounce flex items-center justify-center">
-          <div className="bg-yellow-400 text-yellow-900 px-4 py-2 rounded-full font-bold flex items-center shadow-lg">
-            <ChevronUp className="h-5 w-5 mr-1" />
-            Level Up!
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="animate-[bounce_1s_infinite] bg-gradient-to-r from-yellow-400 to-orange-500 px-8 py-4 rounded-xl font-bold text-xl text-white flex items-center gap-2 shadow-2xl">
+            <ChevronUp className="h-8 w-8" strokeWidth={3} />
+            LEVEL UP!
           </div>
         </div>
       )}

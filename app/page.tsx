@@ -181,14 +181,14 @@ export default function MathApp() {
         const prevLevel = Math.floor((newProgress[currentUser.username].xp - xpGain) / 100);
         const newLevel = Math.floor(newProgress[currentUser.username].xp / 100);
         
-        if (newLevel > prevLevel) {
+        if (newLevel > prevLevel && currentQuestionIndex === 4) {
           setRankUpDetails({
             oldRank: LEVELS[prevLevel].name,
             newRank: LEVELS[newLevel].name
           });
           setShowRankUpModal(true);
         }
-  
+      
         return newProgress;
       });
   
