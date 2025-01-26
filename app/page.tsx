@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { ChevronRight, LogOut, CheckCircle, XCircle, Book, ArrowLeft, ChevronUp } from 'lucide-react';
 import { topics } from './data/topics';
-import { Topics, User as UserType, SubtopicProgress, UserProgress, AllUsersProgress } from './types';
+import { Topics, User as UserType, SubtopicProgress, TopicProgress, UserProgress } from './types';
 import { StudyGuide } from '@/components/StudyGuide';
 import Whiteboard from '@/components/Whiteboard';
+import LevelProgress from '@/components/LevelProgress';
 
 const topicsWithType = topics as Topics;
 
@@ -34,13 +35,7 @@ export default function MathApp() {
     return INITIAL_USERS;
   });
 
-  const [currentUser, setCurrentUser] = useState<UserType | null>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('currentUser');
-      return saved ? JSON.parse(saved) : null;
-    }
-    return null;
-  });
+  const [currentUser, setCurrentUser] = useState<UserType | null>(null);
 
   // Login state
   const [loginUsername, setLoginUsername] = useState('');
@@ -61,13 +56,16 @@ export default function MathApp() {
   const [showAnswer, setShowAnswer] = useState(false);
 
   // User progress state
-  const [userProgress, setUserProgress] = useState<AllUsersProgress>(() => {
+  const [userProgress, setUserProgress] = useState<{[username: string]: UserProgress}>(() => {
     if (typeof window !== 'undefined') {
       const savedProgress = localStorage.getItem('userProgress');
-      return savedProgress ? JSON.parse(savedProgress) : {};
+      return savedProgress ? JSON.parse(savedProgress) : {} as {[username: string]: UserProgress};
     }
-    return {};
+    return {} as {[username: string]: UserProgress};
   });
+
+  // Add this state for level up animation
+  const [showLevelUp, setShowLevelUp] = useState(false);
 
   // Topic and Question Data Processing
   const typedTopics = topics as Topics;
@@ -81,7 +79,8 @@ export default function MathApp() {
   });
 
   const userTopicProgress: SubtopicProgress = 
-    (currentUser && userProgress[currentUser.username]?.[selectedTopic]?.[selectedSubtopic]) || 
+    (currentUser && typeof userProgress[currentUser.username]?.[selectedTopic] === 'object' && 
+    (userProgress[currentUser.username][selectedTopic] as TopicProgress)?.[selectedSubtopic]) || 
     { attempts: 0, correct: 0 };
 
   const accuracy = userTopicProgress.attempts > 0
@@ -146,33 +145,42 @@ export default function MathApp() {
       setSelectedChoice(null);
       setShowAnswer(false);
     } else {
-      // Update the stored progress when completing all 5 questions
       setUserProgress(prev => {
         const newProgress = { ...prev };
         if (!newProgress[currentUser.username]) {
-          newProgress[currentUser.username] = {};
+          newProgress[currentUser.username] = { xp: 0 } as UserProgress;
         }
-        if (!newProgress[currentUser.username][selectedTopic]) {
-          newProgress[currentUser.username][selectedTopic] = {};
+        if (!newProgress[currentUser.username][selectedTopic] || typeof newProgress[currentUser.username][selectedTopic] === 'number') {
+          newProgress[currentUser.username][selectedTopic] = {} as TopicProgress;
         }
-        if (!newProgress[currentUser.username][selectedTopic][selectedSubtopic]) {
-          newProgress[currentUser.username][selectedTopic][selectedSubtopic] = { attempts: 0, correct: 0 };
-        }
+  
+        // Store completed set
+        const topicProgress = newProgress[currentUser.username][selectedTopic] as TopicProgress;
+        topicProgress[selectedSubtopic] = currentAttempt;
+  
+        // Award XP based on performance
+        const xpGain = currentAttempt.correct === 5 ? 100 : currentAttempt.correct * 10;
+        newProgress[currentUser.username].xp = (newProgress[currentUser.username].xp || 0) + xpGain;
+  
+        // Check level up
+        const prevLevel = Math.floor((newProgress[currentUser.username].xp - xpGain) / 100);
+        const newLevel = Math.floor(newProgress[currentUser.username].xp / 100);
         
-        // Store the completed set
-        newProgress[currentUser.username][selectedTopic][selectedSubtopic] = currentAttempt;
-        
+        if (newLevel > prevLevel) {
+          setShowLevelUp(true);
+          setTimeout(() => setShowLevelUp(false), 3000);
+        }
+  
         return newProgress;
       });
   
-      // Reset for next attempt
       setCurrentAttempt({ attempts: 0, correct: 0 });
       setSelectedSubtopic('');
       setCurrentQuestionIndex(0);
       setSelectedChoice(null);
       setShowAnswer(false);
     }
-  };
+};
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -208,7 +216,7 @@ export default function MathApp() {
       if (!userProgress[user.username]) {
         setUserProgress(prev => ({
           ...prev,
-          [user.username]: {}
+          [user.username]: { xp: 0 } as UserProgress 
         }));
       }
       setLoginUsername('');
@@ -216,7 +224,7 @@ export default function MathApp() {
     } else {
       setLoginError('Invalid username or password');
     }
-  };
+   };
 
   const handleLogout = () => {
     setCurrentUser(null);
@@ -404,6 +412,11 @@ export default function MathApp() {
               ))}
             </div>
           </div>
+
+          <LevelProgress 
+            xp={userProgress[currentUser.username]?.xp || 0}
+            showLevelUp={showLevelUp}
+          />
   
           {/* Progress Overview section continues here... */}
 
@@ -472,10 +485,13 @@ if (!selectedSubtopic) {
           
           <div className="grid gap-4">
           {selectedTopic && topicsWithType[selectedTopic] && Object.keys(topicsWithType[selectedTopic].subtopics).map((subtopic) => {
-              const progress = userProgress[currentUser.username]?.[selectedTopic]?.[subtopic] || 
-                { attempts: 0, correct: 0 };
-              const percentage = progress.attempts > 0 ? 
-                Math.round((progress.correct/progress.attempts) * 100) : 0;
+            const progress = (currentUser && 
+            typeof userProgress[currentUser.username]?.[selectedTopic] === 'object' && 
+            (userProgress[currentUser.username][selectedTopic] as TopicProgress)?.[subtopic]) || 
+            { attempts: 0, correct: 0 } as SubtopicProgress;
+                      
+            const percentage = progress.attempts > 0 ? 
+            Math.round((progress.correct/progress.attempts) * 100) : 0;
               
               return (
                 <button
