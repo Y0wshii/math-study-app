@@ -434,6 +434,9 @@ export default function MathApp() {
           <LevelProgress 
             xp={userProgress[currentUser.username]?.xp || 0}
             showLevelUp={showLevelUp}
+            oldRank={rankUpDetails?.oldRank}
+            newRank={rankUpDetails?.newRank}
+            onClose={() => setShowLevelUp(false)}
           />
   
           {/* Progress Overview section continues here... */}
